@@ -2,6 +2,8 @@ Un boceto de los personajes y las armas.
 
 ||Leer viendo la imagen de referencia||
 
+||http://code.google.com/p/fstv-engine/downloads/detail?name=bct01.jpg&can=2&q=||
+
 
 
 En el boceto aparecen los tres personajes que nos representan, con la velocidad de cada uno y el arma correspondiente. La idea es que cada uno tenga un arma propia, no intercambiable, y que se modifique con un item para aumentar su fuerza. Esto es para que nos resulte fácil y efectivo al principio, en un futuro ya desarrollamos más armas. Compensamos la velocidad con la característica de arma, a menos velocidad mejor arma y a la inversa.
