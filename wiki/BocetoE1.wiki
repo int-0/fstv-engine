@@ -2,7 +2,7 @@ Un boceto de los personajes y las armas.
 
 ||Leer viendo la imagen de referencia||
 
-||http://code.google.com/p/fstv-engine/downloads/detail?name=bct01.jpg&can=2&q=||
+||http://fstv-engine.googlecode.com/files/bct01.jpg||
 
 
 
