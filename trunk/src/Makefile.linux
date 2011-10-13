@@ -1,0 +1,15 @@
+CFLAGS=`sdl-config -cflags`
+LDFLAGS=`sdl-config -ldflags`
+
+CFLAGS+=-I./pc -I./common -I./
+
+all: ftve
+
+%.o: %.c
+	$(GCC) $(CFLAGS) $^ -o $@
+
+ftve: pc/main.o scene.o common/sdl_util.o
+
+clean:
+	$(RM) *.o
+	$(RM) *~
