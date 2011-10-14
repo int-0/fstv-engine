@@ -1,9 +1,9 @@
 #include "scene.h"
 
-setup_scene(scene *sc, std::string filename) {
+void setup_scene(Scene *sc, const char *filename) {
 
 }
 
-draw_scene(scene *sc) {
+void draw_scene(Scene *sc) {
 
 }

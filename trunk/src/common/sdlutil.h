@@ -4,13 +4,12 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <string>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern SDL_Surface *load_image( std::string filename );
+extern SDL_Surface *load_image( const char *filename );
 
 #ifdef __cplusplus
 }
