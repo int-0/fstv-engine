@@ -4,6 +4,8 @@ LDFLAGS=`sdl-config --libs`
 CFLAGS+=-I./pc -I./common -I./
 LDFLAGS+=-L./pc -L./common -L./
 
+CFLAGS+=-DFSTV_LINUX
+
 all: ftve
 
 main.o: pc/main.c
@@ -12,7 +14,7 @@ main.o: pc/main.c
 %.o: %.c
 	g++ -c $(CFLAGS) $^
 
-ftve: main.o scene.o
+ftve: main.o scene.o init.o
 	g++ $(LDFLAGS) $^ -o $@
 
 clean:
