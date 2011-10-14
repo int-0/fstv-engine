@@ -5,21 +5,13 @@
 #include "config.h"
 #include "sdlutil.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-  
-  typedef struct FSTV_Scene
-  {
-    SDL_Surface *bg;
-    SDL_Surface *dest;
-  } Scene;
-  
-  extern void setup_scene(Scene *, const char *bg_file);
-  extern void draw_scene(Scene *);
+typedef struct FSTV_Scene
+{
+  SDL_Surface *bg;
+  SDL_Surface *dest;
+} Scene;
 
-#ifdef __cplusplus
-}
-#endif
+void setup_scene(Scene *, const char *bg_file);
+void draw_scene(Scene *);
 
 #endif /* FSTV_SCENE */
