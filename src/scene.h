@@ -2,8 +2,8 @@
 #define FSTV_SCENE
 
 #include <SDL.h>
-#include "pc/config.h"
-#include "common/sdlutil.h"
+#include "config.h"
+#include "sdlutil.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,8 +15,8 @@ extern "C" {
     SDL_Surface *dest;
   } Scene;
   
-  extern setup_scene(scene *, string bg_file);
-  extern draw_scene(scene *);
+  extern void setup_scene(Scene *, const char *bg_file);
+  extern void draw_scene(Scene *);
 
 #ifdef __cplusplus
 }

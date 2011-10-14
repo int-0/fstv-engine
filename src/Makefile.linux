@@ -1,15 +1,21 @@
-CFLAGS=`sdl-config -cflags`
-LDFLAGS=`sdl-config -ldflags`
+CFLAGS=`sdl-config --cflags`
+LDFLAGS=`sdl-config --libs`
 
 CFLAGS+=-I./pc -I./common -I./
+LDFLAGS+=-L./pc -L./common -L./
 
 all: ftve
 
-%.o: %.c
-	$(GCC) $(CFLAGS) $^ -o $@
+main.o: pc/main.c
+	g++ -c $(CFLAGS) $^
 
-ftve: pc/main.o scene.o common/sdl_util.o
+%.o: %.c
+	g++ -c $(CFLAGS) $^
+
+ftve: main.o scene.o
+	g++ $(LDFLAGS) $^ -o $@
 
 clean:
-	$(RM) *.o
-	$(RM) *~
+	$(RM) ftve
+	$(RM) *.o pc/*.o common/*.o
+	$(RM) *~ pc/*~ common/*~
