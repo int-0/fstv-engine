@@ -2,8 +2,8 @@
 #define FSTV_SCENE
 
 #include <SDL.h>
+#include "init.h"
 #include "config.h"
-#include "sdlutil.h"
 
 typedef struct FSTV_Scene
 {
@@ -11,7 +11,8 @@ typedef struct FSTV_Scene
   SDL_Surface *dest;
 } Scene;
 
-void setup_scene(Scene *, const char *bg_file);
+void create_scene(Scene *, const char *);
+void setup_scene(Context , Scene *);
 void draw_scene(Scene *);
 
 #endif /* FSTV_SCENE */
