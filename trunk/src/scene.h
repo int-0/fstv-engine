@@ -15,4 +15,6 @@ void create_scene(Scene *, const char *);
 void setup_scene(Context , Scene *);
 void draw_scene(Scene *);
 
+void run_scene(Scene *);
+
 #endif /* FSTV_SCENE */
