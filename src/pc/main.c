@@ -13,7 +13,8 @@ int main(int argc, char** argv) {
     draw_scene( &sc);
 
     SDL_Flip( ct.screen );
-    SDL_Delay( 3000 );
+
+    run_scene( &sc );
 
     shutdown_ftve();
   } else  {

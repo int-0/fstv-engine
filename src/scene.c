@@ -16,3 +16,19 @@ void draw_scene(Scene *sc) {
 
   SDL_BlitSurface( sc->bg, NULL, sc->dest, &offset);
 }
+
+void run_scene(Scene *sc) {
+
+  int quit = 0;
+  SDL_Event event;
+
+  while ( !quit ) {
+
+    while ( SDL_PollEvent( &event ) ) {
+      if ( event.type == SDL_QUIT ) {
+	quit = -1;
+      }
+    }
+  }
+  
+}
