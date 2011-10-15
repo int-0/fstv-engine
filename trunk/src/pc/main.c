@@ -3,10 +3,21 @@
 
 int main(int argc, char** argv) {
 
-  Context *ct;
+  Context ct;
+  Scene sc;
 
-  init_ftve( ct );
-  shutdown_ftve();
+  if ( init_ftve( &ct ) ) {
+    
+    create_scene( &sc, "boc_pantalla01.jpg" );
+    setup_scene( ct, &sc );
+    draw_scene( &sc);
 
+    SDL_Flip( ct.screen );
+    SDL_Delay( 3000 );
+
+    shutdown_ftve();
+  } else  {
+    printf("Failed to start FSTV engine.\n");
+  }
   return 0;
 }
