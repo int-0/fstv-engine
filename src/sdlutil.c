@@ -6,9 +6,10 @@ SDL_Surface *load_image( const char *filename ) {
 
   loadedImage = IMG_Load( filename );
   if ( loadedImage != NULL ) {
-    optimizedImage = SDL_DisplayFormat( loadedImage );
+    optimizedImage = SDL_DisplayFormatAlpha( loadedImage );
     SDL_FreeSurface( loadedImage );
   }
 
   return optimizedImage;
+
 }
