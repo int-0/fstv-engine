@@ -17,7 +17,9 @@ typedef struct FSTV_Anim
 } Anim;
 
 void add_frame_to(Anim *, const char *);
-void show_anim(Anim *, SDL_Rect *, SDL_Surface *);
+Anim create_anim(SDL_Surface *,
+		 SDL_Rect initial_pos, const char *first_frame);
+void show_anim(Anim *, SDL_Surface *, SDL_Rect);
 void update_anim(Anim *);
 
 #endif /* FSTV_ANIM */
