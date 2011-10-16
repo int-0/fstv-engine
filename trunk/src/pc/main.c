@@ -12,8 +12,6 @@ int main(int argc, char** argv) {
     setup_scene( ct, &sc );
     draw_scene( &sc);
 
-    SDL_Flip( ct.screen );
-
     run_scene( &sc );
 
     shutdown_ftve();

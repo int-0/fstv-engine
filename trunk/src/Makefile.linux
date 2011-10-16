@@ -16,7 +16,7 @@ main.o: pc/main.c
 %.o: %.c
 	g++ -c $(CFLAGS) $^
 
-ftve: main.o scene.o init.o sdlutil.o
+ftve: main.o scene.o init.o sdlutil.o anim.o
 	g++ $(LDFLAGS) $^ -o $@
 
 clean:
