@@ -9,6 +9,17 @@ void add_frame_to(Anim *ani, const char *frame) {
   ++ani->loaded;
 }
 
+Anim create_anim(SDL_Surface *dest,
+		 SDL_Rect initial_pos, const char *first_frame) {
+  Anim new_anim;
+  new_anim.loaded = 0;
+  new_anim.current = 0;
+  new_anim.mode = LOOP;
+  add_frame_to( &new_anim, first_frame );
+
+  return new_anim;
+}
+
 void update_anim(Anim *ani) {
   ++ani->current;
   if ( ani->current >= ani->loaded ) {
@@ -23,7 +34,6 @@ void update_anim(Anim *ani) {
   }
 }
 
-void show_anim(Anim *ani, SDL_Rect *ofs, SDL_Surface *dest) {
-  SDL_BlitSurface( ani->frames[ani->current], NULL, dest, ofs );
+void show_anim(Anim *ani, SDL_Surface *dest, SDL_Rect pos) {
+  SDL_BlitSurface( ani->frames[ani->current], NULL, dest, &pos );
 }
-
