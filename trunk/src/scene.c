@@ -2,7 +2,11 @@
 #include "sdlutil.h"
 #include "anim.h"
 
+#ifndef PSP
 #include "pc/config.h"
+#else
+#include "psp/config.h"
+#endif
 
 #define FPS_TICKS (SDL_GetTicks() - fps_counter)
 

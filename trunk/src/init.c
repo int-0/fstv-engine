@@ -2,6 +2,8 @@
 
 #ifdef FSTV_LINUX
 #include "pc/config.h"
+#else
+#include "psp/config.h"
 #endif
 
 int init_ftve(Context *ct) {
