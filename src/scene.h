@@ -3,7 +3,6 @@
 
 #include <SDL.h>
 #include "init.h"
-#include "config.h"
 
 typedef struct FSTV_Scene
 {
