@@ -14,7 +14,6 @@ Anim create_anim(SDL_Surface *dest,
   Anim new_anim;
   new_anim.loaded = 0;
   new_anim.current = 0;
-  new_anim.mode = LOOP;
   add_frame_to( &new_anim, first_frame );
 
   return new_anim;
@@ -22,15 +21,8 @@ Anim create_anim(SDL_Surface *dest,
 
 void update_anim(Anim *ani) {
   ++ani->current;
-  if ( ani->current >= ani->loaded ) {
-    switch ( ani->mode ) {
-    case LOOP:
-      ani->current = 0;
-      break;
-    case NOLOOP:
-      ani->current = ani->loaded;
-      break;
-    }
+  if ( ani->current == ani->loaded ) {
+    ani->current = 0;
   }
 }
 

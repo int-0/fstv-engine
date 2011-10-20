@@ -1,3 +1,4 @@
+#include "actor.h"
 #include "scene.h"
 #include "sdlutil.h"
 #include "anim.h"
@@ -38,7 +39,13 @@ void run_scene(Scene *sc) {
   add_frame_to( &anim, "toby_walk04.png" );
   add_frame_to( &anim, "toby_walk05.png" );
   add_frame_to( &anim, "toby_walk06.png" );
-  
+
+  Actor toby;
+  toby.actions[0] = anim;
+  toby.current_action = 0;
+  toby.position = offs;
+  toby.dest = sc->dest;
+
   while ( !quit ) {
     
     fps_counter = SDL_GetTicks();
@@ -50,8 +57,8 @@ void run_scene(Scene *sc) {
     }
 
     draw_scene( sc );
-    show_anim( &anim, sc->dest, offs );
-    update_anim( &anim );
+    draw_actor( &toby );
+    update_actor( &toby );
 
     SDL_Flip( sc->dest );
 
