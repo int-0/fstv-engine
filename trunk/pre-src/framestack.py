@@ -93,3 +93,13 @@ class FrameStack:
             new_res_x = int(float(resolution.width) * float(scale_factor_x))
             new_res_y = int(float(resolution.height) * float(scale_factor_y))
             self.frames[frame] = pygame.transform.scale(self.frames[frame], (new_res_x, new_res_y))
+
+    def get_frame(self, group, frame_n):
+        if not self.group_exists(group):
+            raise BadFrameStack('Frame group not found: ' + group)
+        if not frame_n in range(self.groups[group]):
+            raise BadFrameStack('Frame out of range: ' + str(frame_n))
+        return self.frames[self.groups[group][frame_n]]
+
+
+        

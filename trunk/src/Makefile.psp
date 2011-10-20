@@ -2,7 +2,7 @@ TARGET = Sdl_Example
 PSPSDK = $(shell psp-config --pspsdk-path)
 PSPBIN = $(shell psp-config --psp-prefix)/bin
 SDL_CONFIG = $(PSPBIN)/sdl-config
-OBJS = psp/main.o scene.o sdlutil.o anim.o init.o
+OBJS = psp/main.o scene.o sdlutil.o anim.o init.o actor.o
 
 DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 

@@ -8,7 +8,7 @@
 
 typedef struct FSTV_Actor
 {
-  Anim *actions[MAX_ACTIONS];
+  Anim actions[MAX_ACTIONS];
   int current_action;
   SDL_Rect position;
   SDL_Surface *dest;
