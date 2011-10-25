@@ -4,7 +4,14 @@
 #include "anim.h"
 #include <SDL.h>
 
-#define MAX_ACTIONS 10
+#define STANDBY  0
+#define FIRING   1
+#define UP       2
+#define DOWN     4
+#define LEFT     8
+#define RIGHT   16
+
+#define MAX_ACTIONS 32
 
 typedef struct FSTV_Actor
 {
