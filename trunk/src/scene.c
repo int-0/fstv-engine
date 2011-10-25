@@ -11,25 +11,32 @@
 
 #define FPS_TICKS (SDL_GetTicks() - fps_counter)
 
+int free_actor_slot(Scene *sc) {
+  for (int i = 0; i < MAX_ACTORS; i++) {
+    if (sc->live[i] == DEAD) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+void add_actor(Scene *sc, Actor actor) {
+  int i = free_actor_slot( sc );
+  sc->actors[i] = actor;
+  sc->live[i] = LIVE;
+}
+  
 void create_scene(Scene *sc, const char *filename) {
   sc->bg = load_image( filename );
+  for (int i = 0; i < MAX_ACTORS; i++) {
+    sc->live[i] = DEAD;
+  }
 }
 
 void setup_scene(Context ct, Scene *sc) {
   sc->dest = ct.screen;
-}
 
-void draw_scene(Scene *sc) {
-  SDL_BlitSurface( sc->bg, NULL, sc->dest, NULL);
-}
-
-void run_scene(Scene *sc) {
-
-  int fps_counter;
-
-  int quit = 0;
-  SDL_Event event;
-
+  /* BEGIN: create sample actor */
   SDL_Rect offs;
   offs.x = 100;
   offs.y = 100;
@@ -45,6 +52,36 @@ void run_scene(Scene *sc) {
   toby.current_action = 0;
   toby.position = offs;
   toby.dest = sc->dest;
+  add_actor( sc, toby );
+  /* END: create sample actor */
+
+}
+
+void draw_scene(Scene *sc) {
+  /* Put background */
+  SDL_BlitSurface( sc->bg, NULL, sc->dest, NULL);
+  /* Put actors */
+  for (int i = 0; i < MAX_ACTORS; i++) {
+    if (sc->live[i] == LIVE) {
+      draw_actor( &sc->actors[i] );
+    }
+  }
+}
+
+void update_scene(Scene *sc) {
+  for (int i = 0; i < MAX_ACTORS; i++) {
+    if (sc->live[i] == LIVE) {
+      update_actor( &sc->actors[i] );
+    }
+  }
+}
+
+void run_scene(Scene *sc) {
+
+  int fps_counter;
+
+  int quit = 0;
+  SDL_Event event;
 
   while ( !quit ) {
     
@@ -56,10 +93,9 @@ void run_scene(Scene *sc) {
       }
     }
 
+    update_scene( sc );
     draw_scene( sc );
-    draw_actor( &toby );
-    update_actor( &toby );
-
+    
     SDL_Flip( sc->dest );
 
     if ( FPS_TICKS < 1000 / FRAMES_PER_SECOND ) {
