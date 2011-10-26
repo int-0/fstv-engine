@@ -1,4 +1,4 @@
-TARGET = Sdl_Example
+TARGET = FSTV-Engine
 PSPSDK = $(shell psp-config --pspsdk-path)
 PSPBIN = $(shell psp-config --psp-prefix)/bin
 SDL_CONFIG = $(PSPBIN)/sdl-config
@@ -6,7 +6,7 @@ OBJS = psp/main.o scene.o sdlutil.o anim.o init.o actor.o
 
 DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 
-MORE_CFLAGS = -G0 -O2 -DPSP
+MORE_CFLAGS = -G0 -O2 -DPSP -std=c99
 
 CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS)
 CXXFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fno-exceptions -fno-rtti
