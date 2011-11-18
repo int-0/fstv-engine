@@ -1,4 +1,5 @@
 #include "actor.h"
+#include "player.h"
 #include "scene.h"
 #include "sdlutil.h"
 #include "anim.h"
@@ -13,7 +14,16 @@
 
 int free_actor_slot(Scene *sc) {
   for (int i = 0; i < MAX_ACTORS; i++) {
-    if (sc->live[i] == DEAD) {
+    if (sc->live_actor[i] == DEAD) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+int free_player_slot(Scene *sc) {
+  for (int i = 0; i < MAX_PLAYERS; i++) {
+    if (sc->live_player[i] == DEAD) {
       return i;
     }
   }
@@ -22,20 +32,33 @@ int free_actor_slot(Scene *sc) {
 
 void add_actor(Scene *sc, Actor actor) {
   int i = free_actor_slot( sc );
-  sc->actors[i] = actor;
-  sc->live[i] = LIVE;
+  if (i >= 0) {
+    sc->actors[i] = actor;
+    sc->live_actor[i] = LIVE;
+  }
 }
-  
+
+void add_player(Scene *sc, Player player) {
+  int i = free_player_slot( sc );
+  if (i >= 0) {
+    sc->players[i] = player;
+    sc->live_player[i] = LIVE;
+  }
+}
+
 void create_scene(Scene *sc, const char *filename) {
   sc->bg = load_image( filename );
   for (int i = 0; i < MAX_ACTORS; i++) {
-    sc->live[i] = DEAD;
+    sc->live_actor[i] = DEAD;
+  }
+  for (int i = 0; i < MAX_PLAYERS; i++) {
+    sc->live_player[i] = DEAD;
   }
 }
 
 void setup_scene(Context ct, Scene *sc) {
   sc->dest = ct.screen;
-
+  
   /* BEGIN: create sample actor */
   SDL_Rect offs;
   offs.x = 100;
@@ -46,7 +69,7 @@ void setup_scene(Context ct, Scene *sc) {
   add_frame_to( &anim, "toby_walk04.png" );
   add_frame_to( &anim, "toby_walk05.png" );
   add_frame_to( &anim, "toby_walk06.png" );
-
+  
   Actor toby;
   toby.actions[0] = anim;
   toby.current_action = 0;
@@ -62,16 +85,27 @@ void draw_scene(Scene *sc) {
   SDL_BlitSurface( sc->bg, NULL, sc->dest, NULL);
   /* Put actors */
   for (int i = 0; i < MAX_ACTORS; i++) {
-    if (sc->live[i] == LIVE) {
+    if (sc->live_actor[i] == LIVE) {
       draw_actor( &sc->actors[i] );
+    }
+  }
+  /* Put players */
+  for (int i = 0; i < MAX_PLAYERS; i++) {
+    if (sc->live_player[i] == LIVE) {
+      draw_player( &sc->players[i] );
     }
   }
 }
 
 void update_scene(Scene *sc) {
   for (int i = 0; i < MAX_ACTORS; i++) {
-    if (sc->live[i] == LIVE) {
+    if (sc->live_actor[i] == LIVE) {
       update_actor( &sc->actors[i] );
+    }
+  }
+  for (int i = 0; i < MAX_PLAYERS; i++) {
+    if (sc->live_player[i] == LIVE) {
+      update_player( &sc->players[i] );
     }
   }
 }

@@ -2,7 +2,7 @@ TARGET = FSTV-Engine
 PSPSDK = $(shell psp-config --pspsdk-path)
 PSPBIN = $(shell psp-config --psp-prefix)/bin
 SDL_CONFIG = $(PSPBIN)/sdl-config
-OBJS = psp/main.o scene.o sdlutil.o anim.o init.o actor.o
+OBJS = psp/main.o scene.o sdlutil.o anim.o init.o actor.o player.o
 
 DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 
