@@ -60,24 +60,47 @@ void setup_scene(Context ct, Scene *sc) {
   sc->dest = ct.screen;
   
   /* BEGIN: create sample actor */
-  SDL_Rect offs;
-  offs.x = 100;
-  offs.y = 100;
-  Anim anim = create_anim( sc->bg, offs, "toby_walk01.png" );
-  add_frame_to( &anim, "toby_walk02.png" );
-  add_frame_to( &anim, "toby_walk03.png" );
-  add_frame_to( &anim, "toby_walk04.png" );
-  add_frame_to( &anim, "toby_walk05.png" );
-  add_frame_to( &anim, "toby_walk06.png" );
+  SDL_Rect actor_offs;
+  actor_offs.x = 100;
+  actor_offs.y = 100;
+  Anim actor_anim = create_anim( sc->bg, actor_offs, "toby_walk01.png" );
+  add_frame_to( &actor_anim, "toby_walk02.png" );
+  add_frame_to( &actor_anim, "toby_walk03.png" );
+  add_frame_to( &actor_anim, "toby_walk04.png" );
+  add_frame_to( &actor_anim, "toby_walk05.png" );
+  add_frame_to( &actor_anim, "toby_walk06.png" );
   
   Actor toby;
-  toby.actions[0] = anim;
+  toby.actions[0] = actor_anim;
   toby.current_action = 0;
-  toby.position = offs;
+  toby.position = actor_offs;
   toby.dest = sc->dest;
   add_actor( sc, toby );
   /* END: create sample actor */
 
+  /* BEGIN: create sample player */
+  SDL_Rect player_offs;
+  player_offs.x = 500;
+  player_offs.y = 100;
+  Anim player_head_left = create_anim( sc->bg, player_offs, 
+				       "meca_head_left_01.png" );
+  Anim player_weels_left = create_anim( sc->bg, player_offs,
+					"meca_weels_left_01.png" );
+  add_frame_to( &player_weels_left, "meca_weels_left_02.png" );
+  add_frame_to( &player_weels_left, "meca_weels_left_03.png" );
+
+  Player meca;
+  meca.uactions[0] = player_head_left;
+  meca.dactions[0] = player_weels_left;
+  meca.xd_ofs = 0;
+  meca.yd_ofs = 10;
+  meca.current_uaction = 0;
+  meca.current_daction = 0;
+  meca.position = player_offs;
+  meca.dest = sc -> dest;
+  add_player( sc, meca );
+
+  /* END: create sample player */
 }
 
 void draw_scene(Scene *sc) {
