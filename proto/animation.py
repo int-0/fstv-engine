@@ -30,20 +30,18 @@ class Animation:
             if not os.path.exists(filename):
                 break
             frame = self.__load_image(filename)
-            self.frames.append(frame)
+            self.frame.append(frame)
 
     def vflip(self):
         animation = Animation()
         for frm in self.frame:
-            animation.frame.append(pygame.transform.flip(self.frames[frame],
-                                                         1, 0))
+            animation.frame.append(pygame.transform.flip(frm, 1, 0))
         return animation
 
     def hflip(self):
         animation = Animation()
         for frm in self.frame:
-            animation.frame.append(pygame.transform.flip(self.frames[frame]
-                                                         , 0, 1))
+            animation.frame.append(pygame.transform.flip(frm, 0, 1))
         return animation
 
     def scale(self, scale_factor_x, scale_factor_y = None):
@@ -55,13 +53,14 @@ class Animation:
             resolution = frm.get_rect()
             new_res_x = int(float(resolution.width) * float(scale_factor_x))
             new_res_y = int(float(resolution.height) * float(scale_factor_y))
-            animation.frame.append(pygame.transform.scale(self.frames[frame],
+            animation.frame.append(pygame.transform.scale(frm,
                                                           (new_res_x,
                                                            new_res_y)))
         return animation
                                    
     def update():
-        pass
+        self.__current_frame = (self.__current_frame + 1) % len(self.frame)
+        return self.frame[self.__current_frame]
 
     def __call__(self):
         return self.frame[self.__current_frame]
