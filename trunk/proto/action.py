@@ -2,7 +2,7 @@
 
 import pygame
 
-class Animation:
+class Action:
     def __init__(self, base_filename = None):
         self.frame = []
 
@@ -33,19 +33,19 @@ class Animation:
             self.frame.append(frame)
 
     def vflip(self):
-        animation = Animation()
+        animation = Action()
         for frm in self.frame:
             animation.frame.append(pygame.transform.flip(frm, 1, 0))
         return animation
 
     def hflip(self):
-        animation = Animation()
+        animation = Action()
         for frm in self.frame:
             animation.frame.append(pygame.transform.flip(frm, 0, 1))
         return animation
 
     def scale(self, scale_factor_x, scale_factor_y = None):
-        animation = Animation()
+        animation = Action()
         if scale_factor_y is None:
             scale_factor_y = scale_factor_x
 
@@ -57,8 +57,11 @@ class Animation:
                                                           (new_res_x,
                                                            new_res_y)))
         return animation
-                                   
-    def update():
+
+    def reset(self):
+        self.__current_frame = 0
+
+    def update(self):
         self.__current_frame = (self.__current_frame + 1) % len(self.frame)
         return self.frame[self.__current_frame]
 
