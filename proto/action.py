@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
+import os.path
 import pygame
+import common
 
 class Action:
     def __init__(self, base_filename = None):
@@ -10,15 +12,8 @@ class Action:
         if not base_filename is None:
             self.__load_frames(base_filename)
 
-        self.__current_frame = 0
-
-    def __load_image(self, fullname):
-        try:
-            image = pygame.image.load(fullname)
-        except pygame.error, message:
-            print 'Cannot load image:', fullname
-            raise SystemExit, message
-        return image.convert_alpha()
+        self.current_frame = 0
+        self.__len_frame = len(self.frame)
 
     def __filenames(self, basename):
         for frame_n in range(1, 100):
@@ -29,7 +24,7 @@ class Action:
         for filename in self.__filenames(basename):
             if not os.path.exists(filename):
                 break
-            frame = self.__load_image(filename)
+            frame = common.load_image(filename)
             self.frame.append(frame)
 
     def vflip(self):
@@ -59,11 +54,11 @@ class Action:
         return animation
 
     def reset(self):
-        self.__current_frame = 0
+        self.current_frame = 0
 
     def update(self):
-        self.__current_frame = (self.__current_frame + 1) % len(self.frame)
-        return self.frame[self.__current_frame]
+        self.current_frame = (self.current_frame + 1) % self.__len_frame
+        return self.frame[self.current_frame]
 
     def __call__(self):
-        return self.frame[self.__current_frame]
+        return self.frame[self.current_frame]

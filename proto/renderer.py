@@ -7,8 +7,10 @@ class Renderer:
         self.__layer = layer
         self.__background = pygame.Surface((self.__layer.get_rect().width,
                                             self.__layer.get_rect().height))
+        self.__background.convert_alpha()
 
         self.actor = {}
+        self.killed_actor = {}
         self.player = {}
 
     def set_background(self, background):
@@ -22,19 +24,32 @@ class Renderer:
         if self.__actor.has_key(aid):
             del(self.__actor[aid])
 
+    def add_killed_actor(self, kid, killed_actor):
+        kid.layer = self.__layer
+        self.killed_actor[kid] = kill_actor
+
     def add_players(self, pid, player):
         player.layer = self.__layer
-        self.__player[pid] = player
+        self.player[pid] = player
         
     def remove_player(self, pid):
-        if self.__player.has_key(pid):
-            del(self.__player[pid])
+        if self.player.has_key(pid):
+            del(self.player[pid])
 
     def update(self):
         changes = []
         self.__layer.blit(self.__background, (0, 0))
-        for actor in self.__actor.values():
+        for actor in self.actor.values():
             changes += actor.update()
-        for player in self.__player.values():
+        for player in self.player.values():
             changes += player.update()
+
+        remove_actors = []
+        for kill_actor in self.killed_actor.keys():
+            changes += self.killed_actor[kill_actor].update()
+            if self.killed_actor[kill_actor].destroy:
+                remove.actors.append(kill_actor)
+        for actor in remove_actors:
+            del(self.killed_actor[actor])
+
         return changes
