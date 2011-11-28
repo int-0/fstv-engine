@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #
 
-from actor import Actor
 import pygame
+from action import Action
 
 class Actor:
     def __init__(self, layer, initial_animation, position = (0, 0)):
@@ -24,5 +24,25 @@ class Actor:
         self.current = action
 
     def update(self):
-        return [layer.blit(self.actions[self.current].update(),
-                           self.position)]
+        return [self.layer.blit(self.actions[self.current].update(),
+                                self.position)]
+
+class KilledActor:
+    def __init__(self, layer, animation, position = (0, 0)):
+        self.layer = layer
+
+        self.animation = animation
+
+        self.__size = len(self.animation.frame)
+        self.destroy = False
+
+    def update(self):
+        if self.animation.current_frame < self.__size:
+            return [self.layer.blit(self.animation.update(),
+                                    self.position)]
+        
+        self.destroy = True
+        return [self.layer.blit(self.animation.frame[self.animation.current_frame],
+                                self.position)]
+
+
