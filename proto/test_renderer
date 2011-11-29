@@ -12,7 +12,7 @@ def main():
     # Initialize Everything
     pygame.init()
     screen = pygame.display.set_mode((1024, 768))
-    pygame.display.set_caption('PCE Test')
+    pygame.display.set_caption('FSTV Renderer engine test')
     pygame.mouse.set_visible(1)
 
     # Prepare Game Objects
@@ -25,8 +25,23 @@ def main():
     meca = Player(screen,
                   Action('meca_head_left_'),
                   Action('meca_weels_left_'),
-                  (0, 10), (100, 100))
-
+                  (0, 10), (450, 350))
+    meca.add_top_action(Action('meca_head_leftdown_'))
+    meca.add_top_action(Action('meca_head_down_'))
+    meca.add_top_action(Action('meca_head_rightdown_'))
+    meca.add_top_action(Action('meca_head_right_'))
+    meca.add_top_action(Action('meca_head_rightup_'))
+    meca.add_top_action(Action('meca_head_up_'))
+    meca.add_top_action(Action('meca_head_leftup_'))
+    meca.add_bottom_action(Action('meca_weels_rightup_'))
+    meca.add_bottom_action(Action('meca_weels_down_'))
+    meca.add_bottom_action(Action('meca_weels_rightdown_'))
+    meca.add_bottom_action(Action('meca_weels_right_'))
+    meca.add_bottom_action(Action('meca_weels_leftdown_'))
+    meca.add_bottom_action(Action('meca_weels_up_'))
+    meca.add_bottom_action(Action('meca_weels_leftup_'))
+    weel_action = 0
+    head_action = 0
     render.add_players('meca1', meca)
 
     # Main Loop
@@ -39,6 +54,12 @@ def main():
                 return
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 return
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                weel_action = (weel_action + 1) % len(meca.bot_actions)
+                meca.set_bottom_action(weel_action)
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_a:
+                head_action = (head_action + 1) % len(meca.top_actions)
+                meca.set_top_action(head_action)
 
         # Draw scene
         render.update()

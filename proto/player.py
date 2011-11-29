@@ -22,8 +22,11 @@ class Player:
 
         self.layer = layer
 
-    def add_action(self, animation):
-        self.actions.append(animation)
+    def add_top_action(self, animation):
+        self.top_actions.append(animation)
+
+    def add_bottom_action(self, animation):
+        self.bot_actions.append(animation)
 
     # FIXME: check range!
     def set_top_action(self, action):
