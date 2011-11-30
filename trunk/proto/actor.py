@@ -32,8 +32,9 @@ class KilledActor:
         self.layer = layer
 
         self.animation = animation
+        self.position = position
 
-        self.__size = len(self.animation.frame)
+        self.__size = len(self.animation.frame) - 1
         self.destroy = False
 
     def update(self):

@@ -10,7 +10,7 @@ class Renderer:
         self.__background.convert_alpha()
 
         self.actor = {}
-        self.killed_actor = {}
+        self.killed_actor = []
         self.player = {}
 
     def set_background(self, background):
@@ -24,9 +24,9 @@ class Renderer:
         if self.__actor.has_key(aid):
             del(self.__actor[aid])
 
-    def add_killed_actor(self, kid, killed_actor):
-        kid.layer = self.__layer
-        self.killed_actor[kid] = kill_actor
+    def add_killed_actor(self, killed_actor):
+        killed_actor.layer = self.__layer
+        self.killed_actor.append(killed_actor)
 
     def add_players(self, pid, player):
         player.layer = self.__layer
@@ -45,11 +45,11 @@ class Renderer:
             changes += player.update()
 
         remove_actors = []
-        for kill_actor in self.killed_actor.keys():
-            changes += self.killed_actor[kill_actor].update()
-            if self.killed_actor[kill_actor].destroy:
-                remove.actors.append(kill_actor)
+        for kill_actor in self.killed_actor:
+            changes += kill_actor.update()
+            if kill_actor.destroy:
+                remove_actors.append(self.killed_actor.index(kill_actor))
         for actor in remove_actors:
             del(self.killed_actor[actor])
-
+            
         return changes
