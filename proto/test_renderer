@@ -5,7 +5,7 @@ from actor import Actor, KilledActor
 from player import Player
 from renderer import Renderer
 import common
-
+import copy
 import pygame
 
 def main():
@@ -44,6 +44,9 @@ def main():
     head_action = 0
     render.add_players('meca1', meca)
 
+    # KilledActor
+    explosion_anim = Action('xplo_top_up_')
+
     # Main Loop
     while 1:
         clock.tick(20)
@@ -60,7 +63,13 @@ def main():
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_a:
                 head_action = (head_action + 1) % len(meca.top_actions)
                 meca.set_top_action(head_action)
-
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    explosion = copy.copy(explosion_anim)
+                    explosion.reset()
+                    render.add_killed_actor(KilledActor(screen,
+                                                        explosion,
+                                                        event.pos))
         # Draw scene
         render.update()
         pygame.display.flip()
