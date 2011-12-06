@@ -34,7 +34,7 @@ class KilledActor:
         self.animation = animation
         self.position = position
 
-        self.__size = len(self.animation.frame) - 1
+        self.__size = len(self.animation.stack.frame) - 1
         self.destroy = False
 
     def update(self):
@@ -43,7 +43,7 @@ class KilledActor:
                                     self.position)]
         
         self.destroy = True
-        return [self.layer.blit(self.animation.frame[self.animation.current_frame],
+        return [self.layer.blit(self.animation.stack.frame[self.animation.current_frame],
                                 self.position)]
 
 

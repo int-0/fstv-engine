@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from action import FrameStack
 from action import Action
 from actor import Actor, KilledActor
 from player import Player
@@ -23,29 +24,29 @@ def main():
     render.set_background(common.load_image('background.jpg'))
 
     meca = Player(screen,
-                  Action('meca_head_left_'),
-                  Action('meca_weels_left_'),
+                  Action(FrameStack('meca_head_left_')),
+                  Action(FrameStack('meca_weels_left_')),
                   (0, 10), (450, 350))
-    meca.add_top_action(Action('meca_head_leftdown_'))
-    meca.add_top_action(Action('meca_head_down_'))
-    meca.add_top_action(Action('meca_head_rightdown_'))
-    meca.add_top_action(Action('meca_head_right_'))
-    meca.add_top_action(Action('meca_head_rightup_'))
-    meca.add_top_action(Action('meca_head_up_'))
-    meca.add_top_action(Action('meca_head_leftup_'))
-    meca.add_bottom_action(Action('meca_weels_rightup_'))
-    meca.add_bottom_action(Action('meca_weels_down_'))
-    meca.add_bottom_action(Action('meca_weels_rightdown_'))
-    meca.add_bottom_action(Action('meca_weels_right_'))
-    meca.add_bottom_action(Action('meca_weels_leftdown_'))
-    meca.add_bottom_action(Action('meca_weels_up_'))
-    meca.add_bottom_action(Action('meca_weels_leftup_'))
+    meca.add_top_action(Action(FrameStack('meca_head_leftdown_')))
+    meca.add_top_action(Action(FrameStack('meca_head_down_')))
+    meca.add_top_action(Action(FrameStack('meca_head_rightdown_')))
+    meca.add_top_action(Action(FrameStack('meca_head_right_')))
+    meca.add_top_action(Action(FrameStack('meca_head_rightup_')))
+    meca.add_top_action(Action(FrameStack('meca_head_up_')))
+    meca.add_top_action(Action(FrameStack('meca_head_leftup_')))
+    meca.add_bottom_action(Action(FrameStack('meca_weels_rightup_')))
+    meca.add_bottom_action(Action(FrameStack('meca_weels_down_')))
+    meca.add_bottom_action(Action(FrameStack('meca_weels_rightdown_')))
+    meca.add_bottom_action(Action(FrameStack('meca_weels_right_')))
+    meca.add_bottom_action(Action(FrameStack('meca_weels_leftdown_')))
+    meca.add_bottom_action(Action(FrameStack('meca_weels_up_')))
+    meca.add_bottom_action(Action(FrameStack('meca_weels_leftup_')))
     weel_action = 0
     head_action = 0
     render.add_players('meca1', meca)
 
     # KilledActor
-    explosion_anim = Action('xplo_top_up_')
+    explosion_anim = FrameStack('xplo_top_up_')
 
     # Main Loop
     while 1:
@@ -65,10 +66,8 @@ def main():
                 meca.set_top_action(head_action)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    explosion = copy.copy(explosion_anim)
-                    explosion.reset()
                     render.add_killed_actor(KilledActor(screen,
-                                                        explosion,
+                                                        Action(explosion_anim),
                                                         event.pos))
         # Draw scene
         render.update()
